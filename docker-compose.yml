@@ -1,0 +1,57 @@
+version: "3"
+
+
+services: 
+
+  db: 
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: tonys_ecomm_wp_db
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: Tonys4321
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Tonys4321
+    networks: 
+      - wp-net
+    
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports: 
+      - "8080:80"
+    environment: 
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: Tonys4321
+    networks: 
+      - wp-net
+
+  wordpress:
+    image: wordpress:5.2-apache
+    restart: always
+    volumes:
+      - ./wp_site:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: tonys_ecomm_wp_db
+      WORDPRESS_DB_USER: admin
+      WORDPRESS_DB_PASSWORD: Tonys4321
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - wp-net
+
+
+
+volumes:
+  db_data:
+  wp_site:
+
+
+
+networks:
+  wp-net:
+  
