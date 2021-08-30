@@ -29,7 +29,7 @@ services:
       - wp-net
 
   wordpress:
-    image: wordpress:5.2-apache
+    image: wordpress:5.8-apache
     restart: always
     volumes:
       - ./wp_site:/var/www/html
