@@ -678,7 +678,7 @@ msgid "WooCommerce - The Best eCommerce Platform for WordPress"
 msgstr ""
 
 #: inc/storefront-template-functions.php:142
-msgid "Built with Storefront &amp; WooCommerce"
+msgid "Built by Ben"
 msgstr ""
 
 #: inc/storefront-template-functions.php:144
@@ -686,7 +686,7 @@ msgid "Storefront -  The perfect platform for your next WooCommerce project."
 msgstr ""
 
 #: inc/storefront-template-functions.php:144
-msgid "Built with Storefront"
+msgid "Built by Ben"
 msgstr ""
 
 #: inc/storefront-template-functions.php:241
