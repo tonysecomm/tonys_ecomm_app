@@ -238,6 +238,8 @@ class FreeCachedContainer extends Container
             'MailPoet\\Statistics\\UserAgentsRepository' => 'getUserAgentsRepositoryService',
             'MailPoet\\Subscribers\\ConfirmationEmailMailer' => 'getConfirmationEmailMailerService',
             'MailPoet\\Subscribers\\ImportExport\\ImportExportRepository' => 'getImportExportRepositoryService',
+            'MailPoet\\Subscribers\\ImportExport\\PersonalDataExporters\\NewsletterClicksExporter' => 'getNewsletterClicksExporterService',
+            'MailPoet\\Subscribers\\ImportExport\\PersonalDataExporters\\NewsletterOpensExporter' => 'getNewsletterOpensExporterService',
             'MailPoet\\Subscribers\\ImportExport\\PersonalDataExporters\\NewslettersExporter' => 'getNewslettersExporterService',
             'MailPoet\\Subscribers\\LinkTokens' => 'getLinkTokensService',
             'MailPoet\\Subscribers\\NewSubscriberNotificationMailer' => 'getNewSubscriberNotificationMailerService',
@@ -579,7 +581,7 @@ class FreeCachedContainer extends Container
      */
     protected function getNewsletterLinksService()
     {
-        return $this->services['MailPoet\\API\\JSON\\v1\\NewsletterLinks'] = new \MailPoet\API\JSON\v1\NewsletterLinks();
+        return $this->services['MailPoet\\API\\JSON\\v1\\NewsletterLinks'] = new \MailPoet\API\JSON\v1\NewsletterLinks(($this->services['MailPoet\\Cron\\Workers\\StatsNotifications\\NewsletterLinkRepository'] ?? $this->getNewsletterLinkRepositoryService()));
     }
 
     /**
@@ -2466,6 +2468,26 @@ class FreeCachedContainer extends Container
     protected function getImportExportRepositoryService()
     {
         return $this->services['MailPoet\\Subscribers\\ImportExport\\ImportExportRepository'] = new \MailPoet\Subscribers\ImportExport\ImportExportRepository(($this->services['MailPoetVendor\\Doctrine\\ORM\\EntityManager'] ?? $this->getEntityManagerService()), ($this->services['MailPoet\\Segments\\DynamicSegments\\FilterHandler'] ?? $this->getFilterHandlerService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterClicksExporter' shared autowired service.
+     *
+     * @return \MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterClicksExporter
+     */
+    protected function getNewsletterClicksExporterService()
+    {
+        return $this->services['MailPoet\\Subscribers\\ImportExport\\PersonalDataExporters\\NewsletterClicksExporter'] = new \MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterClicksExporter(($this->services['MailPoet\\Subscribers\\SubscribersRepository'] ?? $this->getSubscribersRepositoryService()));
+    }
+
+    /**
+     * Gets the public 'MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterOpensExporter' shared autowired service.
+     *
+     * @return \MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterOpensExporter
+     */
+    protected function getNewsletterOpensExporterService()
+    {
+        return $this->services['MailPoet\\Subscribers\\ImportExport\\PersonalDataExporters\\NewsletterOpensExporter'] = new \MailPoet\Subscribers\ImportExport\PersonalDataExporters\NewsletterOpensExporter(($this->services['MailPoet\\Subscribers\\SubscribersRepository'] ?? $this->getSubscribersRepositoryService()));
     }
 
     /**

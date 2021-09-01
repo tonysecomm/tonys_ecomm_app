@@ -29,7 +29,8 @@ services:
       - wp-net
 
   wordpress:
-    image: wordpress:5.8-apache
+    # image: wordpress:5.8.0-php8.0-apache
+    build: .
     restart: always
     volumes:
       - ./wp_site:/var/www/html
